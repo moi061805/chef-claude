@@ -1,5 +1,6 @@
 import ReactMarkdown from "react-markdown"
 
+// Displays the AI-generated recipe in markdown format
 export default function ClaudeRecipe(props) {
     return (
         <section className="suggested-recipe-container" aria-live="polite">

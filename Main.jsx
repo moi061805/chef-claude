@@ -4,17 +4,26 @@ import ClaudeRecipe from "./components/ClaudeRecipe"
 import { getRecipeFromChefClaude } from "./ai"
 
 export default function Main() {
+    // Track ingredients user has added
     const [ingredients, setIngredients] = React.useState([])
+
+    // Stores generated recipe
     const [recipe, setRecipe] = React.useState("") 
+
+    // For scrolling to the recipe output section when ready
     const recipeSection = React.useRef(null)
+
+    // Loading state to show a message while waiting for AI
     const [loading , setLoading] = React.useState(false)
 
+    // Auto-scroll down when recipe updates
     React.useEffect(() => {
         if (recipe !== "" && recipeSection.current !== null) {
             recipeSection.current.scrollIntoView({behavior: "smooth"})
         }
     }, [recipe])
     
+    // Calls the AI with the ingredient list
     async function getRecipe() {
         setLoading (true)
         try{    
@@ -27,6 +36,7 @@ export default function Main() {
         }
     }
 
+    // Handles form submission and adds ingredient to state
     function addIngredient(e) {
         e.preventDefault()
         const formData = new FormData(e.target)
@@ -37,6 +47,7 @@ export default function Main() {
         }
     }
 
+    // Removes an ingredient from the list
     function removeIngredient(ingredientToRemove) {
         setIngredients(prevIngredients => prevIngredients.filter(ingredient => ingredient !== ingredientToRemove))
     }
